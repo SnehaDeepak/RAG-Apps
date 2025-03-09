@@ -1,0 +1,12 @@
+nest_asyncio
+llama_index
+langchain
+llama-index-llms-huggingface
+llama-index-llms-llama-cpp
+accelerate
+bitsandbytes
+sentence-transformers
+llama-index-embeddings-langchain
+llama-index-embeddings-huggingface
+mlflow
+llama-index-embeddings-fastembed

@@ -1,0 +1,6 @@
+{
+   "collection": "data1",
+   "type_granularity": "chunk",
+   "chunk_size": 1024,
+   "Embeddings": "all-mpnet-base-v2"
+}

@@ -1,0 +1,5 @@
+name: My Project 
+
+entry_points:
+  main:
+    command: python src/indexing.py

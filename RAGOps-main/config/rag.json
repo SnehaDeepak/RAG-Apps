@@ -1,0 +1,8 @@
+{
+   "similarity_top_k": 5,
+   "rerank_top_n": 2,
+   "LLM": "llama2",
+   "temperature": 0.0,
+   "context_window": 4096,
+   "max_new_tokens": 256
+}
