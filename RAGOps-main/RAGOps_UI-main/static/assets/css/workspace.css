@@ -1,0 +1,104 @@
+@charset "UTF-8";
+html,
+.body-id {
+  background-color: #363642;
+  color: #2D2D36;
+  padding: 4rem;
+  background: url(/static/images/bsbild_fullhd_013.png);
+	background-size: cover;
+	height: 100%;
+	padding: 0px;
+
+}
+
+.nav-container {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px 0 rgba(153, 153, 153, 0.35);
+  padding: 1em;
+  border: 1px solid #eee;
+  display: block;
+  max-width: 800px;
+  margin: 2em auto;
+  text-align: center;
+}
+.nav-container-surgicaltoolkit {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px 0 rgba(153, 153, 153, 0.35);
+  padding: 1em;
+  border: 1px solid #eee;
+  display: block;
+  max-width: 800px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+ul,
+li {
+  margin-top: 10px;
+    margin-bottom: 10px;
+  list-style: none;
+  -webkit-padding-start: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #ED3E44;
+}
+
+.nav-item {
+  padding: 1em;
+  display: inline;
+}
+
+.nav-item-dropdown {
+  position: relative;
+}
+.nav-item-dropdown:hover > .dropdown-menu {
+  display: block;
+  opacity: 1;
+}
+
+.dropdown-trigger {
+  position: relative;
+}
+.dropdown-trigger:focus + .dropdown-menu {
+  display: block;
+  opacity: 1;
+}
+.dropdown-trigger::after {
+  content: "›";
+  position: absolute;
+  color: #ED3E44;
+  font-size: 24px;
+  font-weight: bold;
+  transform: rotate(90deg);
+  top: -5px;
+  right: -15px;
+}
+
+.dropdown-menu {
+  background-color: #ffffff;
+  display: inline-block;
+  text-align: right;
+  position: absolute;
+  top: 4.5rem;
+  right: -10px;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  width: 160px;
+}
+.dropdown-menu a {
+  color: #fff;
+}
+
+.dropdown-menu-item {
+  cursor: pointer;
+  padding: 1em;
+  text-align: center;
+}
+.dropdown-menu-item:hover {
+  background-color: #fafafa;
+}

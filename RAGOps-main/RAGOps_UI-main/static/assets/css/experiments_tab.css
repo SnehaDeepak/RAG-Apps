@@ -1,0 +1,689 @@
+/* Sidebar for tabs */
+.tabs-container {
+    position: relative;
+    left: 0;
+    width: 100%;
+    max-width: 220px;
+    height: 100vh;
+    float: left;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+/* Logo images of sidebar tabs */
+.tabs-container img {
+    width: 40px;
+    justify-content: center;
+    margin-left: 10px;
+    margin-top: 13px;
+    float: left;
+    z-index: 2;
+}
+
+.tabs-container ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.tabs-container ul li {
+    position: relative;
+    display: block;
+    height: 100%;
+    line-height: 60px;
+    font-size: 16px;
+    font-weight: normal;
+    text-decoration: none;
+    color: blueviolet;
+    box-sizing: border-box;
+    transition: .4s;
+    margin-top: -11px;
+    padding: 2px;
+    user-select: none;
+    border-bottom: 1px solid #ffe8d0;
+}
+
+.tabs-container ul li:hover {
+    color: blueviolet;
+    font-size: 18px;
+    background-color: white;
+    padding-left: 30px;
+}
+
+/* Content area for tabs */
+.tab-content {
+    position: relative;
+    background: #fef2e5;
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    padding: 0px;
+    float: right;
+    box-sizing: border-box;
+    z-index: 1;
+    display: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.tab-content:after {
+    content: "";
+    clear: both;
+
+}
+
+/* Hide input radio from users */
+input[name="tab"] {
+    display: none;
+}
+
+/* Show tab when input checked */
+input[name="tab"]:checked+.tab-content {
+    display: block;
+    animation: slide 0.5s forwards;
+
+}
+
+.runs_section-container {
+    margin-left: 10px;
+    /* margin-right: 10px; */
+    /* margin-bottom: 10px; */
+    padding: 20px;
+    width: calc(100% - 20px);
+    height: 87vh;
+    background-color: white;
+    border: 1px solid rgb(186, 148, 222);
+    border-radius: 10px;
+}
+
+.runs_section-child {
+    width: calc(50% - 10px);
+    float: left;
+    height: auto;
+    background-color: whitesmoke;
+    /* border: 1px solid #043160; */
+    border-radius: 10px;
+}
+
+.runs_section-child.paramlist {
+    margin-left: 20px;
+    padding-left: 10px;
+    background-color: rgb(32, 64, 98);
+    text-align: left;
+    color: white;
+    height: 100%;
+    overflow-y: auto;
+    font-size: 12pt;
+    line-height: 14pt;
+}
+
+.auto-ML-section {
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 20px;
+    width: calc(100% - 20px);
+    height: auto;
+    background-color: white;
+    border: 1px solid rgb(186, 148, 222);
+    border-radius: 10px;
+}
+
+/* .params_section {
+    display: inline-block;
+    position: relative;
+    left: 520px;
+    top: 30px;
+    width: calc(100% - 500px);
+    height: 80vh;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid rgb(186, 148, 222);
+} */
+
+.table_exp_data {
+    font-size: 10pt;
+    width: auto;
+    height: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.table_exp_data td,
+.table_exp_data th {
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_exp_data th {
+    background-color: blueviolet;
+    color: white;
+}
+
+.table_exp_data tr {
+    text-align: center;
+    background-color: white;
+    color: blueviolet;
+}
+
+.table_exp_data tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_exp_data tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_commit_data {
+    font-size: 10pt;
+    width: auto;
+    height: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_commit_data td,
+.table_commit_data th {
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_commit_data th {
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_commit_data tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_commit_data tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_commit_data tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_runid_data_bank {
+    font-size: 10pt;
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_runid_data_bank td,
+.table_runid_data_bank th {
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_runid_data_bank th {
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_runid_data_bank tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_runid_data_bank tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_runid_data_bank tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_runid_data_Palm {
+    font-size: 10pt;
+    width: 100%;
+    height: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_runid_data_Palm td,
+.table_runid_data_Palm th {
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_runid_data_Palm th {
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_runid_data_Palm tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_runid_data_Palm tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_runid_data_Palm tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_commit_data_medfair {
+    font-size: 10pt;
+    width: auto;
+    height: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_commit_data_medfair td,
+.table_commit_data th {
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_commit_data_medfair th {
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_commit_data_medfair tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_commit_data_medfair tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_commit_data_medfair tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_fairness_toxicity {
+    text-align: center;
+    font-size: 10pt;
+    width: 100;
+    height: 200;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_fairness_toxicity td,
+.table_fairness_toxicity th {
+    text-align: center;
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_fairness_toxicity th {
+    text-align: center;
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_fairness_toxicity tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_fairness_toxicity tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_fairness_toxicity tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_local_inference {
+    text-align: center;
+    font-size: 10pt;
+    width: 50;
+    height: 100;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_local_inference td,
+.table_local_inference th {
+    text-align: center;
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_local_inference th {
+    text-align: center;
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_local_inference tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_local_inference tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_local_inference tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+
+
+.table_fairness_toxicity_all {
+    text-align: center;
+    font-size: 10pt;
+    width: 100;
+    height: 200;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_fairness_toxicity_all td,
+.table_fairness_toxicity_all th {
+    text-align: center;
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_fairness_toxicity_all th {
+    text-align: center;
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_fairness_toxicity_all tr {
+    text-align: center;
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_fairness_toxicity_all tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_fairness_toxicity_all tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_autoGluon {
+    font-size: 10pt;
+    width: auto;
+    height: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_autoGluon td,
+.table_autoGluon th {
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_autoGluon th {
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_autoGluon tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_autoGluon tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_autoGluon tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.table_autoML {
+    font-size: 10pt;
+    width: auto;
+    height: auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    overflow-y: auto;
+    table-layout: auto;
+}
+
+.table_autoML td,
+.table_autoML th {
+    border: 1px solid rgb(170, 170, 170);
+    padding: 5px;
+}
+
+.table_autoML th {
+    background-color: #057a8f;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+.table_autoML tr {
+    text-align: center;
+    background-color: white;
+    color: #0b4f5b;
+}
+
+.table_autoML tr:nth-child(even) {
+    background: rgb(240, 240, 240);
+}
+
+.table_autoML tr:hover {
+    background: beige;
+    cursor: text;
+}
+
+.plot-container {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.plot {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 2px;
+    background-color: white;
+}
+
+.plot-sub {
+    margin-right: 5px;
+    border: 1px solid rgba(0, 128, 128, 0.5);
+    border-radius: 6px;
+}
+
+.charts_section {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 2;
+    background-color: white;
+    grid-gap: 10px;
+    display: flex;
+    align-items: stretch;
+    width: calc(100% - 50px);
+    height: 550px;
+    overflow-x: hidden;
+    border-radius: 10px;
+    border: 1px solid rgb(186, 148, 222);
+}
+
+.charts_section>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid white;
+    padding: 0px;
+    overflow-y: auto;
+}
+
+.charts_section>div:first-child {
+    grid-row: 1;
+    justify-content: center;
+
+}
+
+.charts_section>div:last-child {
+    grid-row: 2;
+}
+
+.charts_metrics {
+    width: 700px;
+    margin-left: 5px;
+    height: auto;
+}
+
+.charts_metrics_bank {
+    width: 1500px;
+    margin-left: 5px;
+    height: 500px;
+}
+
+.charts_metrics_melanoma {
+    width: 1500px;
+    margin-left: 5px;
+    height: 500px;
+}
+
+.charts_metrics_medfair {
+    width: 1500px;
+    margin-left: 5px;
+    height: 800px;
+}
+
+.charts_metrics_bloom {
+    width: 1500px;
+    margin-left: 5px;
+    height: 500px;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column_metrics {
+    padding: 5px;
+    background-color: white;
+    align-items: stretch;
+    border-radius: 10px;
+}
+
+.left {
+    width: 60%;
+    min-width: 500px;
+    background-color: white;
+    margin-left: 20%;
+    align-content: center;
+}
+
+.right {
+    width: 70%;
+    min-width: 500px;
+    margin-left: 15%;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-color: white;
+}
+
+/* Clear floats after the columns */
+.row_metrics:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Active Tab Name */
+#tab1:checked~.tabs-container #label1,
+#tab2:checked~.tabs-container #label2,
+#tab3:checked~.tabs-container #label3,
+#tab4:checked~.tabs-container #label4,
+#tab5:checked~.tabs-container #label5,
+#tab6:checked~.tabs-container #label6,
+#tab7:checked~.tabs-container #label7,
+#tab8:checked~.tabs-container #label8 {
+    background: #ffd9b0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: .4s ease;
+}
+
+figcaption {
+    background-color: grey;
+    color: black;
+    font-style: italic;
+    padding: 2px;
+    text-align: center;
+}
+
+/* Slide animation for tab contents */
+@keyframes slide {
+    from {
+        bottom: -100%;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+
+}

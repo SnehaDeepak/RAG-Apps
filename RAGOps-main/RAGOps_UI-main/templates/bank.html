@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:100,300,100italic,400,300italic' rel='stylesheet'
+        type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <!-- BOOTSTRAP -->
+    <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="/static/assets/css/font-awesome.min.css">
+    <!-- CUSTOM STYLING -->
+    <link href="/static/assets/css/styles.css" rel="stylesheet">
+    <!-- PRELOADER -->
+    <link href="/static/assets/css/loader.css" rel="stylesheet">
+    <link href="/static/assets/css/workspace.css" rel="stylesheet">
+    <link href="/static/assets/css/experiments_tab.css" rel="stylesheet">
+    <link href="/static/assets/css/bank.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+ 
+
+    <!-- CHARTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .column {
+            float: left;
+            width: 40%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        details {
+            user-select: none;
+        }
+
+        details[open] summary span.icon {
+            transform: rotate(180deg);
+        }
+
+        summary {
+            display: flex;
+            cursor: pointer;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Solid border */
+        hr.solid {
+            border-top: 3px solid #bbb;
+        }
+
+        .table td,
+        .table th {
+            font-size: 10px;
+        }
+
+        .myDiv {
+            display: none;
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+
+        }
+
+        .condDiv {
+            text-align: left;
+            vertical-align: top;
+            border: 1px solid #3a4660;
+            width: 160px;
+            height: 150px;
+            display: inline-block;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 80%;
+            line-height: 105%;
+
+        }
+
+        .input {
+            font-size: 90%;
+            line-height: 110%;
+        }
+
+        .timeDiv {
+            padding: 30px;
+            margin-top: 20px;
+            border: 1px solid green;
+            background-color: #adc8e9;
+        }
+
+        #showOutput {
+            border: 1px solid indigo;
+        }
+
+        #showPipeline {
+            border: 1px solid blue;
+        }
+    </style>
+
+
+<style>
+table,
+th,
+td {
+    border: 1px solid black;
+}
+</style>
+    
+<!--  
+        function showPlaceholder() {
+            var select = document.getElementById("type_granularity");
+            var placeholder = document.getElementById("value_granularity");
+            var label = document.getElementById("label");
+
+            if (select.value === "chunk") {
+                placeholder.min = "512";
+                placeholder.max = "4096";
+                label.textContent = "Chunk Size:";
+                placeholder.value = "1024";
+            } else if (select.value === "sentence") {
+                placeholder.min = "1";
+                placeholder.max = "5";
+                label.textContent = "Sentence Window Size:";
+                placeholder.value = "3";
+            }
+        }
+     window.onload = function() {
+            showPlaceholder(); // Set the default values when the page loads
+        };
+-->    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        
+       $(document).ready(function () {  
+        $("#dataform").submit(function (event) {
+          event.preventDefault();
+          var formdata = new FormData(this);
+          $.ajax({
+            url: "/configure_data",
+            type: "POST",
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+              console.log(result.data_config_msg);
+              var data_config_msg = result.data_config_msg;
+              $('#data_config_msg_display').text(data_config_msg);
+            },
+          });
+        });
+      });
+
+</script>
+    
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    // AJAX code to start training AI RIG
+    $(() => {
+                 $('#trigger_exp').click(function (ev) {
+                     $.ajax({
+                         url: "/trigger_experiment",
+                         type: 'POST',
+                         success: function (result) {
+                             console.log(result.trigger_msg)
+                             var trigger_msg = result.trigger_msg;
+                             $('#trigger_msg_display').text(trigger_msg);
+                         },
+                         error: function (result) {
+                             alert("Error!");
+                         }
+                     });
+                 });
+             });
+</script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        // AJAX code for submitting the HTML form
+        $(() => {
+            $('#submit-rag-form').click(function (ev) {
+                var formdata = $("#ragform").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: "/configure_rag",
+                    data: formdata,
+                    success: function (response) {
+                        var rag_config_msg = response.rag_config_msg;
+                        $('#rag_config_msg_display').text(rag_config_msg);
+                    },
+                    error: function (data) {
+                        alert("Error!");
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#submit-query-form").click(function () {
+                var user_input = $("#queryform").serialize();
+                $.ajax({
+                    url: "/query_rag",
+                    type: "POST",
+                    data: user_input,
+                    success: function (response) {
+                        $('#ans_rag').html(response.ans_rag);
+                        console.log(response)
+                    },
+                });
+            });
+        });
+    </script>
+
+
+</head>
+
+<body class="body-id">
+    <div class="nav-container">
+        <ul class="nav-items">
+            <!-- Navigation -->
+            <li class="nav-item"><a href="#intro">Introduction</a></li>
+            <li class="nav-item"><a href="#experiment">Experiment</a></li>
+            <li class="nav-item"><a href="#inference">Inference</a></li>
+            <!--<li class="nav-item"><a href="#inference">Inference</a></li>-->
+            <!--<li class="nav-item"><a href="http://127.0.0.1:7860"
+          target="_blank" rel="noopener noreferrer"> Inference </a></li>-->
+            <li class="nav-item">
+                <a href="http://127.0.0.1:9005/navigation-page">
+                    <i class="fa fa-arrow-circle-left" style="font-size:28px;color:red"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <div id="main">
+
+            <!-- INTRODUCTION TAB -->
+            <article id="intro">
+
+                <h4 class="major"><b>RAGOps</b></h4>
+                <br>
+                <img src="/static/images/rag_ci_flow.jpg" style="max-width: 70%;" alt="ragops background image">
+                <br>
+
+            </article>
+            <!-- EXPERIMENT TAB -->
+            <article id="experiment">
+                    <div>
+                        <input name="tab" id="tab1" type="radio" checked />
+                        <section class="tab-content">
+                            <h4> <b>Runs/Commits </b></h4>
+                            <div class="runs_section-container" style="height: auto;">
+                                <div>
+                                    <form method="POST" id="deploy_runid_bank_form">
+                                        <div>
+                                            <label for="sort_selection_bank_mlflow">Sort the table on:</label>&nbsp;
+                                            <select id="sort_selection_bank_mlflow">
+                                                <option selected value="Latest">Latest</option>
+                                                <option value="faithfulness">faithfulness</option>
+                                                <option value="relevancy">relevancy</option>
+                                            </select>
+                                        </div>
+                                        <div style="width: 100%; height: 550px;overflow: auto;">
+                                            <table class="table_runid_data_bank">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="position: sticky;">Select</th>
+                                                        <th style="position: sticky;">Run ID</th>
+                                                        <th nowrap="nowrap">Experiment Name</th>
+                                                        <th nowrap="nowrap">Created</th>
+                                                        <th nowrap="nowrap">Duration(MM:SS) </th>
+                                                        <th nowrap="nowrap">Data granularity </th>
+                                                        <th nowrap="nowrap">chunk_size</th>
+                                                        <th nowrap="nowrap">sentence_window_size</th>
+                                                        <th nowrap="nowrap">Embeddings </th>
+                                                        <th nowrap="nowrap">similarity_top_k </th>
+                                                        <th nowrap="nowrap">rerank_top_n</th>
+                                                        <th nowrap="nowrap">LLM</th>
+                                                        <th nowrap="nowrap">temperature</th>
+                                                        <th nowrap="nowrap">context_window</th>
+                                                        <th nowrap="nowrap">max_new_tokens</th>
+                                                        <th nowrap="nowrap">faithfulness</th>
+                                                        <th nowrap="nowrap">relevancy</th>
+                                                        <th nowrap="nowrap">Hit Rate</th>
+                                                        <th nowrap="nowrap">MRR</th>
+                                                        <th nowrap="nowrap">Eval LLM</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for row in run_details_all_dict_bank %}
+                                                    <tr {% if row.Run_id==current_run_id_bank
+                                                        %}style="color: #094F5B; background-color: #ffd9b0" {% endif%}>
+                                                        <td><input type="radio" name="run_id_bank" value="{{ row['Run_id'] }}"></td>
+                                                        <td nowrap="nowrap">{{ row['Run_id'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['Run_Name'] }}</td>                                                                             <td nowrap="nowrap">{{ row['Created'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['Duration(MM:SS)'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['granularity'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['chunk_size'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['sentence_window_size'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['Embeddings'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['similarity_top_k'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['rerank_top_n'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['LLM'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['temperature'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['context_window'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['max_new_tokens'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['faithfulness'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['relevancy'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['Hit Rate'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['MRR'] }}</td>
+                                                        <td nowrap="nowrap">{{ row['Eval-LLM'] }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <input type="button" id="deploy_runid_bank" name="deploy_runid_bank"
+                                                style="width: 250px;" value="Deploy selected model">
+                                            <br>
+                                            <p style="color: #262e3f;font-size: 18px;display: inline;">
+                                                <b>The current deployed model for the Inference is from Run id :
+                                                </b>
+                                            </p>
+                                            <p id="current_run_id_bank_display"
+                                                style="color: #262e3f;font-size: 18px;font-weight: bolder;display: inline;">
+                                                {{ current_run_id_bank }}</p>
+                                        </div>
+                                    </form>
+                
+                                </div>
+                            </div>
+                        </section>
+                        
+                  <input name="tab" id="tab2" type="radio" />
+            <section class="tab-content">
+            <h4 class="major"><b>Create New Experiment</b></h4>
+            <br>
+            <form method="POST" id="dataform" enctype="multipart/form-data">
+             <h4 style="text-align: center; color: #3a4660;">Data processing and indexing</h4>
+                <fieldset class="fieldset-style">
+                <div class="fieldset-content">
+               <label>Upload data:</label>&nbsp;
+               <input type="file" id='data-rag' name="data-rag" accept="data/*" size="5" multiple="" >&emsp;&emsp;
+                <label for="ques">Collection name</label>&nbsp;
+                <input type="text" name="collection" id="collection">&emsp;&emsp;</br>
+                <br>
+                <label for="type_granularity">Data granularity</label>&nbsp;
+                <!--<select name="type_granularity" id="type_granularity" onchange="showPlaceholder()">-->
+                <select name="type_granularity" id="type_granularity">
+                    <option value="chunk" selected>Chunk</option>
+                    <option value="sentence">Sentence</option>
+                </select>&emsp;&emsp;
+                 <!--<label id="label" for="value_granularity"></label>&nbsp;
+                    <input id="value_granularity" type="number">&emsp;&emsp;</br>-->
+                
+                <label for="chunk_size">Chunk-Size</label>&nbsp;
+                <input type="number" id="chunk_size" name="chunk_size" value="1024" min="1024" max="10000" step="1" size="2">&emsp;&emsp;
+                <label for="sentence_window_size">Sentence-Window-Size</label>&nbsp;
+                <input type="number" id="sentence_window_size" name="sentence_window_size" value="3" min="1" max="5" step="1" size="1">&emsp;&emsp;</br>
+                <br>
+                <label for="Embeddings">Embeddings</label>&nbsp;
+                <select name="Embeddings" id="Embeddings">
+                    <option value="all-mpnet-base-v2">all-mpnet-base-v2</option>
+                    <option value="bge-small-en-v1.5">bge-small-en-v1.5</option>
+                </select>&emsp;&emsp;
+                </div>
+                </fieldset>
+                <br>
+                <button type="Submit" id="submit-data-form">Submit</button>
+                <p id="data_config_msg_display"style="color: #262e3f;font-size: 18px;font-weight: bolder;display: inline;">
+                            {{ data_config_msg }}</p>
+                <br>
+            </form>
+            
+               <div>
+                    <form method="post" id="ragform">
+                        <br>
+                        <h4 style="text-align: center; color: #3a4660;">Retrieval and Generation</h4>
+                        <fieldset class="fieldset-style">
+                            <div class="fieldset-content">                               
+                                <p>Retrieval parameters:</p>
+                                <label for="similarity_top_k">Similarity-Top-K</label>&nbsp;
+                                <input type="number" id="similarity_top_k" name="similarity_top_k" value="5" min="1" max="15" step="1" size="1">&emsp;&emsp;
+                                <label for="rerank_top_n">Rerank-Top-N</label>&nbsp;
+                                <input type="number" id="rerank_top_n" name="rerank_top_n" value="2" min="1" max="10" step="1" size="1">&emsp;&emsp;</br>
+
+                                <p>Generation parameters:</p>
+                                <label for="LLM">LLM</label>&nbsp;
+                                <select name="LLM" id="LLM">
+                                    <option value="llama2">Llama2</option>
+                                    <option value="mistral">Mistral</option>
+                                </select>&emsp;&emsp;
+                                <label for="temperature">Temperature</label>&nbsp;
+                                <input type="number" id="temperature" name="temperature" value="0.0" min="0.0" max="5.0" step="0.1"
+                                    size="2">&emsp;&emsp;
+                                <label for="context_window">Context window:</label>&nbsp;
+                                <input type="number" id="context_window" name="context_window" value="4096" min="4096" max="20000" step="1"
+                                    size="2">&emsp;&emsp;
+                                <label for="max_new_tokens">max new tokens</label>&nbsp;
+                                <input type="number" id="max_new_tokens" name="max_new_tokens" value="256" min="256" max="25600">&emsp;&emsp;</br>
+                                <br>
+                            <!--<input type="checkbox" name="evaluation" id="evaluation" value="eval">
+                            <label for="evaluation">Want to evaluate pipeline</label>-->
+                   
+                            </div>
+                        </fieldset>
+                        <br>
+                        <input type="button" value="Submit" id="submit-rag-form" name="ragform"
+                            style="display: inline-block;">&emsp;&emsp;
+                        <input type="reset" value="Reset" id="reset-rag-form" style="display: inline-block;">
+                    </form>
+                </div>
+                <p id="rag_config_msg_display"style="color: #262e3f;font-size: 18px;font-weight: bolder;display: inline;">
+                            {{ rag_config_msg }}</p>
+                <br>
+                <br>
+                <div>
+                    <input type="button" id="trigger_exp" name="trigger_exp"
+                    style="width: 250px;" value="Trigger Experiment">
+                    <br>
+                    <p id="trigger_msg_display"style="color: #262e3f;font-size: 18px;font-weight: bolder;display: inline;">
+                      {{ trigger_msg }}</p>
+                </div>
+                        </section>
+
+                
+                
+                        <section class="tabs-container">
+                            <ul>
+                                <li id="label1"><img src="/static/images/icon_commit_git.png"><label for="tab1">
+                                        Runs/Commits </label>
+                                </li>
+                                <li id="label2"><img src="/static/images/icon_exp.jpg"><label for="tab2">
+                                       Experiment </label>
+                                </li>
+                                
+                                <li id="label3"><a href="https://github.com/MLOps-Demo/RAGOps" target="_blank"
+                                        rel="noopener noreferrer"><img src="/static/images/icon_github.png"><label for="tab3"
+                                            style="color: blueviolet;"> Code </label></a></li>
+                                <li id="label4"><a
+                                        href="http://10.161.2.132:5020/#/experiments/19/"
+                                        target="_blank" rel="noopener noreferrer"><img src="/static/images/MLflow_icon.svg"><label
+                                            for="tab4" style="color: blueviolet;"> MLFlow
+                                        </label></a></li>
+                            </ul>
+                        </section>
+                
+                    </div>
+
+            </article>
+
+        <!-- INFERENCE TAB -->
+        <article id="inference">
+            <h4 class="major"><b>Query RAG</b></h4>
+            <br>
+               <div>
+                    <form method="post" id="queryform">
+                        <fieldset class="fieldset-style">
+                            <div class="fieldset-content">
+                                <label for="similarity_top_k">Similarity-Top-K</label>&nbsp;
+                                <input type="number" id="similarity_top_k" name="similarity_top_k" value="5" min="1" max="15" step="1" size="1">&emsp;&emsp;
+                                <label for="rerank_top_n">Rerank-Top-N</label>&nbsp;
+                                <input type="number" id="rerank_top_n" name="rerank_top_n" value="2" min="1" max="10" step="1" size="1">&emsp;&emsp;</br>
+                              <br>
+                                <label for="context_window">Temperature</label>&nbsp;
+                                <input type="number" id="temperature" name="temperature" value="0.0" min="0.0" max="5.0" step="0.1"
+                                    size="2">&emsp;&emsp;
+                                <label for="context_window">Context window:</label>&nbsp;
+                                <input type="number" id="context_window" name="context_window" value="4096" min="4096" max="20000" step="1"
+                                    size="2">&emsp;&emsp;
+                                <label for="max_new_tokens">max new tokens</label>&nbsp;
+                                <input type="number" id="max_new_tokens" name="max_new_tokens" value="256" min="256" max="25600">&emsp;&emsp;</br>
+                            </div>
+                        </fieldset>
+                        <br>
+                         <div class="container">
+                                <label for="query">Ask question</label>
+                                <input type="text" name="query" id="query">
+                        </div>
+                        <input type="button" value="Run Query" id="submit-query-form" name="queryform"
+                            style="display: inline-block;">&emsp;&emsp;
+                        <input type="reset" value="Reset" id="reset-query-form" style="display: inline-block;">
+                    </form>
+                </div>
+                <strong>Answer: </strong>
+                <div class="container" id="ans_rag" style="font-weight: bold;">
+                </div>
+                <br>
+        </article>
+
+
+        </div>
+ 
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+    <!-- SMOOTH SCROLL -->
+    <script src="/static/assets/js/smooth-scroll.min.js"></script>
+    <!-- PARALLAX IMG -->
+    <script src="/static/assets/js/jquery.parallax-1.1.3.js"></script>
+    <!-- SCROLL REVEAL -->
+    <script src="/static/assets/js/scrollReveal.min.js"></script>
+    <!-- FUNCTIONS -->
+    <script src="/static/assets/js/functions.js"></script>
+
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/js/browser.min.js"></script>
+    <script src="/static/assets/js/breakpoints.min.js"></script>
+    <script src="/static/assets/js/experiments_tab_bank.js"></script>
+    <script src="/static/assets/js/util.js"></script>
+    <script src="/static/assets/js/main.js"></script>
+</body>
+
+</html>
